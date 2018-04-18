@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	
+	<title>LifeTasks</title>
+
+	<style>
+		body {
+			position: relative;
+			min-height: 100vh;
+			padding: 0;
+			margin: 0;
+		}
+		lifetask-app[unresolved] {
+			display: block;
+			min-width: 100vw;
+			min-height: 100vh;
+			background-color: rgb(195, 34, 34);
+		}
+	</style>
+</head>
+<body>
+	<lifetask-app unresolved></lifetask-app>
+
+	<!-- Dependences -->
+	<script src="node_modules/redux/dist/redux.min.js"></script>
+
+	<!-- Angular -->
+	<script src="node_modules/angular/angular.min.js"></script>
+
+	<!-- Angular Injections -->
+	<script src="node_modules/angular-aria/angular-aria.min.js"></script>
+	<script src="node_modules/angular-animate/angular-animate.min.js"></script>
+	<script src="node_modules/angular-resource/angular-resource.min.js"></script>
+	<script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+	<script src="node_modules/angular-messages/angular-messages.min.js"></script>
+	<script src="node_modules/ng-redux/umd/ng-redux.min.js"></script>
+	<script src="node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+
+	<!-- Angular App -->
+	<script src="components/lifetask-app/app.js"></script>
+	
+	<!-- LifeTasks App -->
+	<script src="components/lifetask-app/lifetask-app.js"></script>
+</body>
+</html>

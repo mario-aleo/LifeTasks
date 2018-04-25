@@ -1,0 +1,39 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "camelcase": [
+            "error",
+            {
+                "properties": "always"
+            }
+        ],
+        "no-use-before-define": [
+            "error",
+            {
+                "functions": true,
+                "classes": false
+            }
+        ]
+    }
+}

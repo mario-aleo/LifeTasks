@@ -1,9 +1,13 @@
+/* global angular */
+
 angular.module('lifeTask').config([
 	'$ngReduxProvider',
 	$ngReduxProvider => {
 		class SessionReducerState {
 			constructor() {
-				this.token = '';
+				this.id = '';
+				this.name = '';
+				this.email = '';
 				this.coins = 0;
 			}
 		}
@@ -12,6 +16,12 @@ angular.module('lifeTask').config([
 			if (!state)
 				return new SessionReducerState();
 			switch(action.type) {
+			case 'LOGIN':
+				return Object.assign({}, state, {
+					id: action.data.id,
+					name: action.data.name,
+					email: action.data.email
+				});
 			default:
 				return state;
 			}

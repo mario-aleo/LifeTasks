@@ -8,22 +8,50 @@
 	<title>LifeTask</title>
 
 	<style>
+		:root {
+			--app-color: rgb(195, 34, 34);
+			--app-text-color: rgb(255, 255, 255);
+		}
+
 		body {
 			position: relative;
 			min-height: 100vh;
 			padding: 0;
 			margin: 0;
+			font-family: sans-serif, Arial, Helvetica;
+			letter-spacing: 0.1rem; 
 		}
 		lifetask-app[unresolved] {
 			display: block;
 			min-width: 100vw;
 			min-height: 100vh;
-			background-color: rgb(195, 34, 34);
+			background-color: var(--app-color);
 		}
 	</style>
+
+	<!-- LazyLoad Style -->
 </head>
 <body>
 	<lifetask-app unresolved></lifetask-app>
+
+	<!-- Firebase Project -->
+	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase-auth.js"></script>
+	<script>
+		const config = {
+			apiKey: "AIzaSyDNDLcV8-kCc5ASX5QRtkzU-CZogSLicD8",
+			authDomain: "ma-life-task.firebaseapp.com",
+			databaseURL: "https://ma-life-task.firebaseio.com",
+			projectId: "ma-life-task",
+			storageBucket: "ma-life-task.appspot.com",
+			messagingSenderId: "553225641197"
+		};
+		firebase.initializeApp(config);
+	</script>
+
+	<!-- Polyfills -->
+	<script src="src/importStyle.js"></script>
 
 	<!-- Dependences -->
 	<script src="node_modules/redux/dist/redux.min.js"></script>
@@ -38,11 +66,13 @@
 	<script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
 	<script src="node_modules/angular-messages/angular-messages.min.js"></script>
 	<script src="node_modules/ng-redux/umd/ng-redux.min.js"></script>
+	<script src="node_modules/oclazyload/dist/ocLazyLoad.min.js"></script>
 	<script src="node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
 
 	<!-- Angular App -->
-	<script src="components/lifetask-app/app.module.js"></script>
-	<script src="components/lifetask-app/app.redux.js"></script>
+	<script src="src/app.module.js"></script>
+	<script src="src/app.redux.js"></script>
+	<script src="src/app.routes.js"></script>
 	
 	<!-- LifeTask App -->
 	<script src="components/lifetask-app/lifetask-app.component.js"></script>

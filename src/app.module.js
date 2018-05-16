@@ -1,3 +1,5 @@
+/* global angular */
+
 angular.module('lifeTask', [
 	'ngAria',
 	'ngAnimate',
@@ -5,5 +7,6 @@ angular.module('lifeTask', [
 	'ngSanitize',
 	'ngMessages',
 	'ngRedux',
+	'oc.lazyLoad',
 	'ui.router'
 ]);

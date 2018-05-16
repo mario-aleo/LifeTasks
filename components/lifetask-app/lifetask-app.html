@@ -1,9 +1,9 @@
-<span>LifeTask App</span>
+<header id="appHeader">
+	<span> Life Task </span>
+</header>
 
-{{ $ctrl.session }}
+<ui-view id="appContent"></ui-view>
 
-{{ $ctrl.task }}
-
-{{ $ctrl.reward }}
-
-<ui-view></ui-view>
+<section id="loginContent">
+	<button ng-click="$ctrl.login()">Login</button>
+</section>

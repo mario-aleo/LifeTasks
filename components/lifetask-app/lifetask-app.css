@@ -1,0 +1,43 @@
+lifetask-app {
+	display: grid;
+	grid-template-rows: 64px auto;
+	grid-template-columns: auto;
+	grid-template-areas:
+		"appHeader"
+		"appContent";
+	width: 100%;
+	min-height: 100vh;
+}
+lifetask-app #appHeader {
+	grid-area: appHeader;
+	display: flex;
+	align-items: center;
+	position: fixed;
+	height: 64px;
+	width: 100vw;
+	padding: 0 16px;
+	color: var(--app-text-color);
+	background-color: var(--app-color);
+	box-shadow: 0 0 8px 2px rgba(0, 0, 0, .32);
+}
+lifetask-app #appContent {
+	grid-area: appContent;
+	background-color: rgb(230, 230, 230);
+}
+lifetask-app #loginContent {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1;
+	top: 64px;
+	left: 0;
+	width: 100vw;
+	height: calc(100vh - 64px);
+	color: var(--app-text-color);
+	background-color: var(--app-color);
+	visibility: visible;
+}
+lifetask-app[authorized] #loginContent {
+	visibility: hidden;
+}

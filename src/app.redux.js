@@ -12,16 +12,34 @@ angular.module('lifeTask').config([
 			}
 		}
 
+		function syncWithStorage(state) {
+			window.localStorage.setItem('sessionState', JSON.stringify(state));
+		}
+
+		function getSessionState() {
+			const localStorageItem = window.localStorage.getItem('sessionState');
+			return localStorageItem ? JSON.parse(localStorageItem) : new SessionReducerState();
+		}
+
 		function sessionReducer(state, action) {
 			if (!state)
-				return new SessionReducerState();
+				return getSessionState();
+			let newState = {};
 			switch(action.type) {
 			case 'LOGIN':
-				return Object.assign({}, state, {
+				newState = Object.assign({}, state, {
 					id: action.data.id,
 					name: action.data.name,
 					email: action.data.email
 				});
+				syncWithStorage(newState);
+				return newState;
+			case 'FINISH_TASK':
+				newState = Object.assign({}, state, {
+					coins: state.coins + action.data.task.reward
+				});
+				syncWithStorage(newState);
+				return newState;
 			default:
 				return state;
 			}
@@ -29,7 +47,8 @@ angular.module('lifeTask').config([
 
 		class TaskReducerState {
 			constructor() {
-				this.list = [];
+				this.task = {id: null, title: null, description: null, reward: null};
+				this.list = [{id: 0, title: 'Titulo', description: 'Descrição', reward: 10}];
 			}
 		}
 
@@ -37,6 +56,18 @@ angular.module('lifeTask').config([
 			if (!state)
 				return new TaskReducerState();
 			switch(action.type) {
+			case 'TASK_CRUD':
+				return Object.assign({}, state, { task: action.data.task });
+			case 'SAVE_EDIT':
+				return Object.assign({}, state, {
+					task: {id: null, title: null, description: null, reward: null},
+					list: state.list.map(task =>
+						task.id == action.data.id ? action.data : task)
+				});
+			case 'FINISH_TASK':
+				return Object.assign({}, state, {
+					list: state.list.filter(task => task.id != action.data.task.id)
+				});
 			default:
 				return state;
 			}
@@ -44,7 +75,7 @@ angular.module('lifeTask').config([
 
 		class RewardReducerState {
 			constructor() {
-				this.list = [];
+				this.list = [{title: 'Titulo', description: 'Descrição', value: 10}];
 			}
 		}
 

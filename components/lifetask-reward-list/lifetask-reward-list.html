@@ -1,3 +1,13 @@
-<button ng-click="$ctrl.login()">Login</button>
-
-{{ $ctrl.session }}
+<section class="lifetask-reward-card"
+	ng-repeat="reward in $ctrl.rewardList">
+	<div class="lifetask-reward-card-header">
+		<span>{{ reward.title }}</span>
+	</div>
+	<div class="lifetask-reward-card-content">
+		<span>{{ reward.description }}</span>
+	</div>
+	<div class="lifetask-reward-card-footer">
+		<button ng-click="$ctrl.buyReward(reward)">Comprar: {{ reward.value }}</button>
+		<button ng-click="$ctrl.editReward(reward)">Editar</button>
+	</div>
+</section>

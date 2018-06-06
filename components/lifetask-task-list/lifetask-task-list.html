@@ -1,0 +1,13 @@
+<section class="lifetask-task-card"
+	ng-repeat="task in $ctrl.taskList">
+	<div class="lifetask-task-card-header">
+		<span>{{ task.title }}</span>
+	</div>
+	<div class="lifetask-task-card-content">
+		<span>{{ task.description }}</span>
+	</div>
+	<div class="lifetask-task-card-footer">
+		<button ng-click="$ctrl.finishTask(task)">Concluir</button>
+		<button ng-click="$ctrl.editTask(task)">Editar</button>
+	</div>
+</section>

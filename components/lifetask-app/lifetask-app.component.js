@@ -18,9 +18,8 @@ class LifetaskAppController {
 
 		this.__lifetaskBehavior = $ngRedux.connect(behavior =>
 			Object({
-				session: behavior.session,
-				task: behavior.task,
-				reward: behavior.reward
+				userId: behavior.session.id,
+				userCoins: behavior.session.coins
 			})
 		)(this);
 
@@ -29,6 +28,8 @@ class LifetaskAppController {
 
 	/* Lifecycle */
 	$onInit() {
+		if (this.userId)
+			this.$.setAttribute('authorized', '');
 		this.$.removeAttribute('unresolved');
 	}
 

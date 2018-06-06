@@ -1,4 +1,51 @@
-lifetask-login {
-	display: block;
-	height: 100%;
+lifetask-reward-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100%;
+}
+
+.lifetask-reward-card {
+	display: grid;
+	grid-template-rows: 64px auto 64px;
+	grid-template-columns: auto;
+	grid-template-areas:
+		"cardHeader"
+		"cardContent"
+		"cardFooter";
+	width: calc(100% - 32px);
+	min-height: 256px;
+	border-radius: 5px;
+	margin: 16px 16px 0 16px;
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
+}
+.lifetask-reward-card:last-child {
+	margin-bottom: 16px;
+}
+
+.lifetask-reward-card .lifetask-reward-card-header {
+	grid-area: cardHeader;
+	display: flex;
+	align-items: center;
+	padding: 0 16px;
+	border-bottom: solid 1px rgb(225, 225, 225);
+	font-size: 16px;
+	color: rgb(35, 35, 35);
+}
+
+.lifetask-reward-card .lifetask-reward-card-content {
+	grid-area: cardContent;
+	padding: 16px;
+	font-size: 13px;
+	color: rgb(90, 90, 90);
+}
+
+.lifetask-reward-card .lifetask-reward-card-footer {
+	grid-area: cardFooter;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 16px;
+	border-top: solid 1px rgb(225, 225, 225);
 }

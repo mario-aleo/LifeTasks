@@ -1,9 +1,23 @@
 <header id="appHeader">
 	<span> Life Task </span>
 	<span> Coins: {{ $ctrl.userCoins }} </span>
+	<i class="material-icons">
+		account_box
+	</i>
 </header>
 
 <ui-view id="appContent"></ui-view>
+
+<footer id="appFooter">
+	<div ng-click="$ctrl.changeView($event)"
+		data-view="taskList">
+		<span>Tarefas</span>
+	</div>
+	<div ng-click="$ctrl.changeView($event)"
+		data-view="rewardList">
+		<span>Recompensas</span>
+	</div>
+</footer>
 
 <section id="loginContent">
 	<button ng-click="$ctrl.login()">Login</button>

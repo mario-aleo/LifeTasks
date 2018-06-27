@@ -32,6 +32,17 @@ class LifetaskTaskListController {
 	/* */
 
 	/* Public */
+	addTask() {
+		const taskList = Object.assign([], this.taskList);
+		const newId = taskList.sort((a, b) => a.id < b.id)[0].id + 1;
+		this.$ngRedux.dispatch({type: 'TASK_CRUD', data: {
+			task: {
+				id: newId
+			}
+		}});
+		this.$state.go('taskCrud');
+	}
+
 	editTask(task) {
 		this.$ngRedux.dispatch({type: 'TASK_CRUD', data: { task }});
 		this.$state.go('taskCrud');

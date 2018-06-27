@@ -20,8 +20,8 @@ lifetask-reward-list {
 	background-color: rgb(255, 255, 255);
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
 }
-.lifetask-reward-card:last-child {
-	margin-bottom: 16px;
+.lifetask-reward-card.last-card {
+	margin: 16px 16px 72px 16px;
 }
 
 .lifetask-reward-card .lifetask-reward-card-header {
@@ -48,4 +48,24 @@ lifetask-reward-list {
 	justify-content: space-between;
 	padding: 0 16px;
 	border-top: solid 1px rgb(225, 225, 225);
+}
+
+.lifetask-reward-card .lifetask-reward-card-footer button i {
+	margin-left: 2px;
+	font-size: 16px;
+}
+
+#lifetask-reward-fab-add {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	bottom: 64px;
+	right: 16px;
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	color: var(--app-text-color);
+	background-color: var(--app-color);
+	box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, 0.66);
 }

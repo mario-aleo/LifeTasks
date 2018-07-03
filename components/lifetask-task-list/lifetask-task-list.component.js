@@ -64,3 +64,24 @@ class LifetaskTaskListController {
 }
 
 angular.module('lifeTask').component('lifetaskTaskList', new LifetaskTaskList());
+
+
+// const db = firebase.firestore();
+// db.collection("users")
+//     .doc(firebase.auth().currentUser.uid)
+// 	.collection("taskList")
+// 	.add({
+// 		title: 'title',
+// 		description: 'description'
+// 	});
+//
+// db.collection("users")
+//     .doc(firebase.auth().currentUser.uid)
+// 	.collection("taskList")
+// 	.get()
+// 	.then(querySnapshot => {
+//         querySnapshot.forEach(doc => {
+//             console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+//         });
+//     });
+//

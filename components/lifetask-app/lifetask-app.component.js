@@ -44,6 +44,33 @@ class LifetaskAppController {
 
 	/* Public */
 	login() {
+		// const db = firebase.firestore();
+		// db.collection('users')
+		// 	.doc(result.user.uid)
+		// 	.set({
+		// 		uid: result.user.uid,
+		// 		coins: 0,
+		// 		taskList: [],
+		// 		rewardList: []
+		// 	})
+		// 	.then(res => console.log(res))
+		// 	.catch(err => console.log(err));
+		//
+		// db.collection("users")
+		// 	.doc(firebase.auth().currentUser.uid)
+		// 	.get()
+		// 	.then(res => console.log(res.data()));
+		//
+		// db.collection('users')
+		// 	.doc(result.user.uid)
+		// 	.update({
+		// 		uid: result.user.uid,
+		// 		coins: 0,
+		// 		taskList: [],
+		// 		rewardList: []
+		// 	})
+		// 	.then(res => console.log(res))
+		// 	.catch(err => console.log(err));
 		firebase.auth().signInWithPopup(this.provider).then(result => {
 			if (result.credential) {
 				this.$ngRedux.dispatch({ type: 'LOGIN',

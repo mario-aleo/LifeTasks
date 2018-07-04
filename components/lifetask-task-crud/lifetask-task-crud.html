@@ -1,14 +1,21 @@
-<section id="task-title">
-	<span class="title">Titulo</span>
-	<input type="text" ng-model="$ctrl.title">
-</section>
-<section id="task-description">
-	<span class="title">Descrição</span>
-	<textarea cols="30" rows="10" ng-model="$ctrl.description"></textarea>
-</section>
-<section id="task-reward">
-	<span class="title">Recompensa</span>
-	<input type="number" min="0" ng-model="$ctrl.reward">
+<section class="lifetask-task-card">
+	<section class="lifetask-task-card-header">
+		<span>Tarefa</span>
+	</section>
+	<section class="lifetask-task-card-content">
+		<section id="task-title">
+			<span class="title">Titulo</span>
+			<input type="text" ng-model="$ctrl.title">
+		</section>
+		<section id="task-description">
+			<span class="title">Descrição</span>
+			<textarea rows="5" ng-model="$ctrl.description"></textarea>
+		</section>
+		<section id="task-reward">
+			<span class="title">Recompensa</span>
+			<input type="number" min="0" ng-model="$ctrl.task">
+		</section>
+	</section>
 </section>
 
 <section id="save"

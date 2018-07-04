@@ -5,7 +5,7 @@ lifetask-reward-list {
 	min-height: 100%;
 }
 
-.lifetask-reward-card {
+lifetask-reward-list .lifetask-reward-card {
 	display: grid;
 	grid-template-rows: 64px auto 64px;
 	grid-template-columns: auto;
@@ -20,11 +20,11 @@ lifetask-reward-list {
 	background-color: rgb(255, 255, 255);
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
 }
-.lifetask-reward-card.last-card {
+lifetask-reward-list .lifetask-reward-card.last-card {
 	margin: 16px 16px 72px 16px;
 }
 
-.lifetask-reward-card .lifetask-reward-card-header {
+lifetask-reward-list .lifetask-reward-card .lifetask-reward-card-header {
 	grid-area: cardHeader;
 	display: flex;
 	align-items: center;
@@ -34,14 +34,14 @@ lifetask-reward-list {
 	color: rgb(35, 35, 35);
 }
 
-.lifetask-reward-card .lifetask-reward-card-content {
+lifetask-reward-list .lifetask-reward-card .lifetask-reward-card-content {
 	grid-area: cardContent;
 	padding: 16px;
 	font-size: 13px;
 	color: rgb(90, 90, 90);
 }
 
-.lifetask-reward-card .lifetask-reward-card-footer {
+lifetask-reward-list .lifetask-reward-card .lifetask-reward-card-footer {
 	grid-area: cardFooter;
 	display: flex;
 	align-items: center;
@@ -50,12 +50,12 @@ lifetask-reward-list {
 	border-top: solid 1px rgb(225, 225, 225);
 }
 
-.lifetask-reward-card .lifetask-reward-card-footer button i {
+lifetask-reward-list .lifetask-reward-card .lifetask-reward-card-footer button i {
 	margin-left: 2px;
 	font-size: 16px;
 }
 
-#lifetask-reward-fab-add {
+lifetask-reward-list #lifetask-reward-fab-add {
 	display: flex;
 	align-items: center;
 	justify-content: center;

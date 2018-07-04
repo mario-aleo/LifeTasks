@@ -35,7 +35,9 @@ class LifetaskRewardListController {
 	/* Public */
 	addReward() {
 		const rewardList = Object.assign([], this.rewardList);
-		const newId = rewardList.sort((a, b) => a.id < b.id)[0].id + 1;
+		let newId = 0;
+		if (rewardList.length > 0)
+			newId = rewardList.sort((a, b) => a.id < b.id)[0].id + 1;
 		this.$ngRedux.dispatch({type: 'REWARD_CRUD', data: {
 			reward: {
 				id: newId

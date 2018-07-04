@@ -5,7 +5,7 @@ lifetask-task-list {
 	min-height: 100%;
 }
 
-.lifetask-task-card {
+lifetask-task-list .lifetask-task-card {
 	display: grid;
 	grid-template-rows: 64px auto 64px;
 	grid-template-columns: auto;
@@ -21,11 +21,11 @@ lifetask-task-list {
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
 }
 
-.lifetask-task-card.last-card {
+lifetask-task-list .lifetask-task-card.last-card {
 	margin: 16px 16px 72px 16px;
 }
 
-.lifetask-task-card .lifetask-task-card-header {
+lifetask-task-list .lifetask-task-card .lifetask-task-card-header {
 	grid-area: cardHeader;
 	display: flex;
 	align-items: center;
@@ -35,14 +35,14 @@ lifetask-task-list {
 	color: rgb(35, 35, 35);
 }
 
-.lifetask-task-card .lifetask-task-card-content {
+lifetask-task-list .lifetask-task-card .lifetask-task-card-content {
 	grid-area: cardContent;
 	padding: 16px;
 	font-size: 13px;
 	color: rgb(90, 90, 90);
 }
 
-.lifetask-task-card .lifetask-task-card-footer {
+lifetask-task-list .lifetask-task-card .lifetask-task-card-footer {
 	grid-area: cardFooter;
 	display: flex;
 	align-items: center;
@@ -51,7 +51,7 @@ lifetask-task-list {
 	border-top: solid 1px rgb(225, 225, 225);
 }
 
-#lifetask-task-fab-add {
+lifetask-task-list #lifetask-task-fab-add {
 	display: flex;
 	align-items: center;
 	justify-content: center;

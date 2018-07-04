@@ -1,0 +1,24 @@
+<section class="lifetask-reward-card">
+	<section class="lifetask-reward-card-header">
+		<span>Recompensa</span>
+	</section>
+	<section class="lifetask-reward-card-content">
+		<section id="reward-title">
+			<span class="title">Titulo</span>
+			<input type="text" ng-model="$ctrl.title">
+		</section>
+		<section id="reward-description">
+			<span class="title">Descrição</span>
+			<textarea rows="5" ng-model="$ctrl.description"></textarea>
+		</section>
+		<section id="reward-value">
+			<span class="title">Valor</span>
+			<input type="number" min="0" ng-model="$ctrl.value">
+		</section>
+	</section>
+</section>
+
+<section id="save"
+	ng-click="$ctrl.save()">
+	<i class="material-icons">save</i>
+</section>

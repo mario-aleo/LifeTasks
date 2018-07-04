@@ -16,7 +16,7 @@ lifetask-app #appHeader {
 	justify-content: space-between;
 	position: fixed;
 	height: 64px;
-	width: calc(100vw - 32px);
+	width: calc(100% - 32px);
 	padding: 0 16px;
 	color: var(--app-text-color);
 	background-color: var(--app-color);
@@ -39,7 +39,7 @@ lifetask-app #appFooter {
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	width: 100vw;
+	width: 100%;
 	height: 48px;
 	color: var(--app-color);
 	background-color: rgb(255, 255, 255);
@@ -89,13 +89,48 @@ lifetask-app button {
 	background-color: var(--app-color);
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, .32);
 }
+lifetask-app button:disabled,
 lifetask-app button.disabled,
 lifetask-app button[disabled] {
 	color: #555;
 	background-color: rgb(230, 230, 230);
 	pointer-events: none;
 }
+lifetask-app input {
+	padding: 2px 1px;
+	border-width: 0 0 2px 0;
+	border-style: solid;
+	border-color: #777;
+	font-family: 'Roboto', sans-serif;
+	background-color: transparent;
+}
+lifetask-app textarea {
+    width: 100%;
+    padding: 2px 1px;
+    border-width: 0 0 2px 0;
+    border-style: solid;
+    border-color: #777;
+	font-family: 'Roboto', sans-serif;
+    background-color: transparent;
+	resize: none;
+}
+lifetask-app input:focus,
+lifetask-app textarea:focus {
+	outline: none;
+	border-color: var(--app-color);
+}
+lifetask-app input:disabled,
+lifetask-app input.disabled,
+lifetask-app input[disabled],
+lifetask-app textarea:disabled,
+lifetask-app textarea.disabled,
+lifetask-app textarea[disabled] {
+	color: #777;
+	border-color: #999;
+	pointer-events: none;
+}
 lifetask-app [ng-click],
 lifetask-app [ng-click] * {
 	cursor: pointer;
+	user-select: none;
 }

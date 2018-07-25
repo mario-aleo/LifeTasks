@@ -34,6 +34,12 @@ angular.module('lifeTask').config([
 				});
 				syncWithStorage(newState);
 				return newState;
+			case 'UPDATE_COINS':
+				newState = Object.assign({}, state, {
+					coins: action.data.coins
+				});
+				syncWithStorage(newState);
+				return newState;
 			case 'FINISH_TASK':
 				newState = Object.assign({}, state, {
 					coins: state.coins + action.data.task.reward
@@ -54,7 +60,7 @@ angular.module('lifeTask').config([
 		class TaskReducerState {
 			constructor() {
 				this.task = {id: null, title: null, description: null, reward: null};
-				this.list = [{id: 0, title: 'Titulo', description: 'Descrição', reward: 10}];
+				this.list = [];
 			}
 		}
 
@@ -65,6 +71,10 @@ angular.module('lifeTask').config([
 			case 'TASK_CRUD': 
 				return Object.assign({}, state, {
 					task: Object.assign({}, state.task, action.data.task)
+				});
+			case 'UPDATE_TASK_LIST':
+				return Object.assign({}, state, {
+					list: action.data.taskList
 				});
 			case 'SAVE_TASK_CRUD':
 				return Object.assign({}, state, {
@@ -86,7 +96,7 @@ angular.module('lifeTask').config([
 		class RewardReducerState {
 			constructor() {
 				this.reward = {id: null, title: null, description: null, value: null};
-				this.list = [{id: 0, title: 'Titulo', description: 'Descrição', value: 10}];
+				this.list = [];
 			}
 		}
 
@@ -97,6 +107,10 @@ angular.module('lifeTask').config([
 			case 'REWARD_CRUD': 
 				return Object.assign({}, state, {
 					reward: Object.assign({}, state.reward, action.data.reward)
+				});
+			case 'UPDATE_REWARD_LIST':
+				return Object.assign({}, state, {
+					list: action.data.rewardList
 				});
 			case 'SAVE_REWARD_CRUD':
 				return Object.assign({}, state, {

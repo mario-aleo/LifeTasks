@@ -1,4 +1,4 @@
-/* global angular, importStyle */
+/* global angular, firebase, importStyle */
 
 importStyle('components/lifetask-reward-list/lifetask-reward-list.css', { preload: true });
 
@@ -18,6 +18,7 @@ class LifetaskRewardListController {
 
 		this.__lifetaskBehavior = $ngRedux.connect(behavior =>
 			Object({
+				userId: behavior.session.id,
 				userCoins: behavior.session.coins,
 				rewardList: behavior.reward.list
 			})
@@ -34,14 +35,8 @@ class LifetaskRewardListController {
 
 	/* Public */
 	addReward() {
-		const rewardList = Object.assign([], this.rewardList);
-		let newId = 0;
-		if (rewardList.length > 0)
-			newId = rewardList.sort((a, b) => a.id < b.id)[0].id + 1;
 		this.$ngRedux.dispatch({type: 'REWARD_CRUD', data: {
-			reward: {
-				id: newId
-			}
+			task: {title: null, description: null, value: null}
 		}});
 		this.$state.go('rewardCrud');
 	}
@@ -52,7 +47,39 @@ class LifetaskRewardListController {
 	}
 
 	buyReward(reward) {
-		this.$ngRedux.dispatch({type: 'BUY_REWARD', data: { reward }});
+		const db = firebase.firestore();
+		db.collection('users')
+			.doc(this.userId)
+			.collection('rewardList')
+			.doc(reward.id)
+			.delete()
+			.then(() => 
+				db.collection('users')
+					.doc(this.userId)
+					.update({
+						coins: this.userCoins - reward.value
+					})
+			)
+			.then(() => 
+				db.collection('users')
+					.doc(this.userId)
+					.get()
+			)
+			.then(res => { 
+				this.$ngRedux.dispatch({ type: 'UPDATE_COINS',
+					data: {
+						coins: res.data().coins
+					}
+				});
+				this.$ngRedux.dispatch({ type: 'UPDATE_REWARD_LIST',
+					data: {
+						rewardList: res.data().rewardList
+					}
+				});
+			})
+			.catch(err =>
+				console.error(err)
+			);
 	}
 	/* */
 

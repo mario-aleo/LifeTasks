@@ -1,4 +1,4 @@
-/* global angular, importStyle */
+/* global angular, firebase, importStyle */
 
 importStyle('components/lifetask-task-list/lifetask-task-list.css', { preload: true });
 
@@ -18,6 +18,8 @@ class LifetaskTaskListController {
 
 		this.__lifetaskBehavior = $ngRedux.connect(behavior =>
 			Object({
+				userId: behavior.session.id,
+				coins: behavior.session.coins,
 				taskList: behavior.task.list
 			})
 		)(this);
@@ -33,14 +35,8 @@ class LifetaskTaskListController {
 
 	/* Public */
 	addTask() {
-		const taskList = Object.assign([], this.taskList);
-		let newId = 0;
-		if (taskList > 0)
-			newId = taskList.sort((a, b) => a.id < b.id)[0].id + 1;
 		this.$ngRedux.dispatch({type: 'TASK_CRUD', data: {
-			task: {
-				id: newId
-			}
+			task: {title: null, description: null, reward: null}
 		}});
 		this.$state.go('taskCrud');
 	}
@@ -51,7 +47,39 @@ class LifetaskTaskListController {
 	}
 
 	finishTask(task) {
-		this.$ngRedux.dispatch({type: 'FINISH_TASK', data: { task }});
+		const db = firebase.firestore();
+		db.collection('users')
+			.doc(this.userId)
+			.collection('taskList')
+			.doc(task.id)
+			.delete()
+			.then(() => 
+				db.collection('users')
+					.doc(this.userId)
+					.update({
+						coins: this.coins + task.reward
+					})
+			)
+			.then(() => 
+				db.collection('users')
+					.doc(this.userId)
+					.get()
+			)
+			.then(res => { 
+				this.$ngRedux.dispatch({ type: 'UPDATE_COINS',
+					data: {
+						coins: res.data().coins
+					}
+				});
+				this.$ngRedux.dispatch({ type: 'UPDATE_TASK_LIST',
+					data: {
+						taskList: res.data().taskList
+					}
+				});
+			})
+			.catch(err =>
+				console.error(err)
+			);
 	}
 	/* */
 

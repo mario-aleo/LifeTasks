@@ -1,4 +1,4 @@
-/* global angular, importStyle */
+/* global angular, firebase, importStyle */
 
 importStyle('components/lifetask-reward-crud/lifetask-reward-crud.css', { preload: true });
 
@@ -18,6 +18,7 @@ class LifetaskRewardCrudController {
 
 		this.__lifetaskBehavior = $ngRedux.connect(behavior =>
 			Object({
+				userId: behavior.session.id,
 				id: behavior.reward.reward.id,
 				title: behavior.reward.reward.title,
 				description: behavior.reward.reward.description,
@@ -27,11 +28,6 @@ class LifetaskRewardCrudController {
 	}
 
 	/* Lifecycle */
-	$onInit() {
-		if (this.id === null)
-			this.$state.go('rewardList');
-	}
-
 	$onDestroy() {
 		this.__lifetaskBehavior();
 	}
@@ -39,13 +35,68 @@ class LifetaskRewardCrudController {
 
 	/* Public */
 	save() {
-		this.$ngRedux.dispatch({type: 'SAVE_REWARD_CRUD', data: {
-			id: this.id,
-			title: this.title,
-			description: this.description,
-			value: this.value
-		}});
-		this.$state.go('rewardList');
+		if (this.reward.id)
+			this.updateReward();
+		else
+			this.createReward();
+	}
+
+	createReward() {
+		const db = firebase.firestore();
+		db.collection('users')
+			.doc(this.userId)
+			.collection('rewardList')
+			.set({
+				title: this.title,
+				description: this.description,
+				value: this.value
+			})
+			.then(res => {
+				console.log(res);
+				return db.collection('users')
+					.doc(this.userId)
+					.get();
+			})
+			.then(res => {
+				this.$ngRedux.dispatch({ type: 'UPDATE_REWARD_LIST',
+					data: {
+						rewardList: res.data().rewardList
+					}
+				});
+				this.$state.go('rewardList');
+			})
+			.catch(err =>
+				console.error(err)
+			);
+	}
+
+	updateReward() {
+		const db = firebase.firestore();
+		db.collection('users')
+			.doc(this.userId)
+			.collection('rewardList')
+			.doc(this.reward.id)
+			.update({
+				title: this.title,
+				description: this.description,
+				value: this.value
+			})
+			.then(() =>
+				db.collection('users')
+					.doc(this.userId)
+					.get()
+			)
+			.then(res => {
+				this.$ngRedux.dispatch({ type: 'UPDATE_REWARD_LIST',
+					data: {
+						rewardList: res.data().rewardList
+					}
+				});
+				this.$state.go('rewardList');
+			})
+			.catch(err =>
+				console.error(err)
+			);
 	}
 	/* */
 

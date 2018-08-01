@@ -138,7 +138,7 @@ angular.module('lifeTask').component('lifetaskApp', new LifetaskApp());
 // 		rewardList: []
 // 	})
 // 	.then(res => console.log(res))
-// 	.catch(err => console.log(err));
+// 	.catch(err => console.error(err));
 //
 // db.collection("users")
 // 	.doc(firebase.auth().currentUser.uid)
@@ -154,4 +154,4 @@ angular.module('lifeTask').component('lifetaskApp', new LifetaskApp());
 // 		rewardList: []
 // 	})
 // 	.then(res => console.log(res))
-// 	.catch(err => console.log(err));
+// 	.catch(err => console.error(err));

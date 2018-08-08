@@ -71,12 +71,22 @@ class LifetaskTaskListController {
 						coins: res.data().coins
 					}
 				});
+				return db.collection('users')
+					.doc(this.userId)
+					.collection('taskList')
+					.get();
+			})
+			.then(res =>
 				this.$ngRedux.dispatch({ type: 'UPDATE_TASK_LIST',
 					data: {
-						taskList: res.data().taskList
+						taskList: res.docs.map(doc => 
+							Object.assign({}, doc.data(), {
+								id: doc.id
+							})
+						)
 					}
-				});
-			})
+				})
+			)
 			.catch(err =>
 				console.error(err)
 			);
@@ -94,24 +104,3 @@ class LifetaskTaskListController {
 }
 
 angular.module('lifeTask').component('lifetaskTaskList', new LifetaskTaskList());
-
-
-// const db = firebase.firestore();
-// db.collection("users")
-//     .doc(firebase.auth().currentUser.uid)
-// 	.collection("taskList")
-// 	.add({
-// 		title: 'title',
-// 		description: 'description'
-// 	});
-//
-// db.collection("users")
-//     .doc(firebase.auth().currentUser.uid)
-// 	.collection("taskList")
-// 	.get()
-// 	.then(querySnapshot => {
-//         querySnapshot.forEach(doc => {
-//             console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-//         });
-//     });
-//

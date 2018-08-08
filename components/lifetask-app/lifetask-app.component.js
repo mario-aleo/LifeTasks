@@ -30,9 +30,10 @@ class LifetaskAppController {
 	$onInit() {
 		this.$.removeAttribute('unresolved');
 
-		this.$scope.$watch(() =>
-			this.$state.$current, 
-		this.__stateChanged.bind(this));
+		this.$scope.$watch(
+			() => this.$state.$current,
+			this.__stateChanged.bind(this)
+		);
 
 		firebase.auth()
 			.onAuthStateChanged(user => {
@@ -44,6 +45,47 @@ class LifetaskAppController {
 							id: user.uid
 						}
 					});
+					const db = firebase.firestore();
+					db.collection('users')
+						.doc(user.uid)
+						.get()
+						.then(res => {
+							this.$ngRedux.dispatch({ type: 'UPDATE_COINS',
+								data: {
+									coins: res.data().coins
+								}
+							});
+						});
+					db.collection('users')
+						.doc(user.uid)
+						.collection('taskList')
+						.get()
+						.then(res =>
+							this.$ngRedux.dispatch({ type: 'UPDATE_TASK_LIST',
+								data: {
+									taskList: res.docs.map(doc => 
+										Object.assign({}, doc.data(), {
+											id: doc.id
+										})
+									)
+								}
+							})
+						);
+					db.collection('users')
+						.doc(user.uid)
+						.collection('rewardList')
+						.get()
+						.then(res =>
+							this.$ngRedux.dispatch({ type: 'UPDATE_REWARD_LIST',
+								data: {
+									rewardList: res.docs.map(doc => 
+										Object.assign({}, doc.data(), {
+											id: doc.id
+										})
+									)
+								}
+							})
+						);
 					this.$.setAttribute('authorized', '');
 				} else
 					firebase.auth().signOut();
@@ -81,22 +123,42 @@ class LifetaskAppController {
 										coins: res.data().coins
 									}
 								});
-								this.$ngRedux.dispatch({ type: 'UPDATE_TASK_LIST',
-									data: {
-										taskList: res.data().taskList
-									}
-								});
-								this.$ngRedux.dispatch({ type: 'UPDATE_REWARD_LIST',
-									data: {
-										rewardList: res.data().rewardList
-									}
-								});
+								db.collection('users')
+									.doc(result.user.uid)
+									.collection('taskList')
+									.get()
+									.then(res =>
+										this.$ngRedux.dispatch({ type: 'UPDATE_TASK_LIST',
+											data: {
+												taskList: res.docs.map(doc => 
+													Object.assign({}, doc.data(), {
+														id: doc.id
+													})
+												)
+											}
+										})
+									);
+								db.collection('users')
+									.doc(result.user.uid)
+									.collection('rewardList')
+									.get()
+									.then(res =>
+										this.$ngRedux.dispatch({ type: 'UPDATE_REWARD_LIST',
+											data: {
+												rewardList: res.docs.map(doc => 
+													Object.assign({}, doc.data(), {
+														id: doc.id
+													})
+												)
+											}
+										})
+									);
 							}
 						});
 				}
 			})
 			.catch(error =>
-				console.warn(error)
+				console.error(error)
 			);
 	}
 

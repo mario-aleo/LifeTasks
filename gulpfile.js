@@ -8,11 +8,38 @@ const htmlmin = require('gulp-htmlmin');
 const npmFiles = require('gulp-npm-files');
 const cleanCss = require('gulp-clean-css');
 const webserver = require('gulp-webserver');
+const swPrecache = require('sw-precache');
 const runSequence = require('run-sequence');
+const packageJson = require('./package.json');
 
 function isFixed(file) {
 	return file.eslint != null && file.eslint.fixed;
 }
+
+function writeServiceWorkerFile(handleFetch, callback) {
+	const config = {
+		cacheId: packageJson.name,
+		handleFetch: handleFetch,
+		navigateFallback: 'index.html',
+		navigateFallbackWhitelist: [/^(?!\/__).*/],
+		runtimeCaching: [{
+			urlPattern: /ma-life-task\.firebaseapp\.com/,
+			handler: 'networkFirst',
+			options: {
+				cache: {
+					name: packageJson.name
+				}
+			}
+		}],
+		staticFileGlobs: [
+			'./build/assets/**/*.*'
+		],
+		stripPrefix: './build/',
+		verbose: true
+	};
+	swPrecache.write('./build/service-worker.js', config, callback);
+}
+
 
 gulp.task('clean-build', () =>
 	del('./build/*', { force: true })
@@ -20,6 +47,16 @@ gulp.task('clean-build', () =>
 
 gulp.task('npm-dependencies', () =>
 	gulp.src(npmFiles(), { base: '.' })
+		.pipe(gulp.dest('./build'))
+);
+
+gulp.task('copy-assets', () =>
+	gulp.src('./assets/**/*', { base: '.' })
+		.pipe(gulp.dest('./build'))
+);
+
+gulp.task('copy-manifest', () =>
+	gulp.src('./manifest.json', { base: '.' })
 		.pipe(gulp.dest('./build'))
 );
 
@@ -50,14 +87,21 @@ gulp.task('lint-js', () =>
 		.pipe(eslint.failAfterError())
 );
 
+gulp.task('create-service-worker', callback =>
+	writeServiceWorkerFile(true, callback)
+);
+
 gulp.task('default', () =>
 	runSequence(
 		'clean-build',
 		'npm-dependencies',
+		'copy-manifest',
+		'copy-assets',
 		'lint-js',
 		'compress-js',
 		'compress-css',
-		'compress-html'
+		'compress-html',
+		'create-service-worker'
 	)
 );
 
@@ -65,7 +109,7 @@ gulp.task('watch-js', () =>
 	gulp.watch(['./src/*.js', './components/**/*.js'], ['lint-js'])
 );
 
-gulp.task('server-dev', () => 
+gulp.task('server-dev', () =>
 	gulp.src('.')
 		.pipe(webserver({ livereload: true, open: true }))
 );

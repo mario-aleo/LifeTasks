@@ -5,7 +5,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	
-	<title>LifeTask</title>
+	<title>Life Task</title>
+	<meta name="description" content="App de tarefas e recompensas">
+    <meta name="theme-color" content="#c32222">
+    <link rel="shortcut icon" href="assets/icons/512x512.png"/>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Life Task">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Life Task">
+    <link rel="apple-touch-icon" href="assets/icons/48x48.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/icons/72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="assets/icons/96x96.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/icons/144x144.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/192x192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="assets/icons/192x192.png">
 
 	<style>
 		:root {
@@ -50,6 +70,18 @@
 			font-feature-settings: 'liga';
 		}
 	</style>
+
+	<script>
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', function() {
+				navigator.serviceWorker
+				.register(
+					'service-worker.js'
+				);
+			});
+		}
+	</script>
+
 
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

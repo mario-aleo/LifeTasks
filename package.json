@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "build": "gulp",
-    "start": "gulp server-dev watch-js"
+    "start": "gulp server-dev watch-js",
+    "deploy": "gulp && firebase deploy"
   },
   "author": "Mario Aleo",
   "license": "ISC",

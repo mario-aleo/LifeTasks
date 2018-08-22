@@ -6,7 +6,7 @@
   "scripts": {
     "build": "gulp",
     "start": "gulp server-dev watch-js",
-    "deploy": "gulp && firebase deploy"
+    "deploy": "npm run build && firebase deploy"
   },
   "author": "Mario Aleo",
   "license": "ISC",
